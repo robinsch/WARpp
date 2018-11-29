@@ -110,7 +110,7 @@ public:
         if (!opHandle)
         {
             std::cerr << "Received unimplemented Opcode: " << packet->GetOpcode() << " with size: " << packet->size() << '\n';
-            return false;
+            return true;
         }
 
         opHandle->Call(this, *packet);
@@ -132,6 +132,9 @@ public:
 
     void HandleVerifyProtocol(WorldPackets::Login::LoginVerifyProtocol& loginQuery);
     void HandleAuthSessionToken(WorldPackets::Login::AuthSessionToken& token);
+    void HandleCharSummaryList(WorldPackets::Login::CharSummaryList& list);
+    void HandleClusterList(WorldPackets::Login::ClusterList& list);
+    void HandleAccPropList(WorldPackets::Login::AccPropList& list);
 
     ConnectionType GetConnectionType() const { return _type; }
 

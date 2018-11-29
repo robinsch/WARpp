@@ -29,12 +29,18 @@ enum OpcodeClient : uint16
 {
     CMSG_VERIFY_PROTOCOL        = 0x01,
     CMSG_AUTH_SESSION_TOKEN     = 0x05,
+    CMSG_CHAR_SUMMARY_LIST      = 0x07,
+    CMSG_CLUSTER_LIST           = 0x09,
+    CMSG_ACC_PROP_LIST          = 0x0B,
 };
 
 enum OpcodeServer : uint16
 {
     SMSG_VERIFY_PROTOCOL        = 0x02,
     SMSG_AUTH_SESSION_TOKEN     = 0x06,
+    SMSG_CHAR_SUMMARY_LIST      = 0x08,
+    SMSG_CLUSTER_LIST           = 0x0A,
+    SMSG_ACC_PROP_LIST          = 0x0C,
 };
 
 /// Player state

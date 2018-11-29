@@ -44,15 +44,13 @@ void Session::SendPacket(WorldPacket const * packet)
 void Session::WritePacketToBuffer(WorldPacket const& packet, MessageBuffer & buffer)
 {
     uint32 opcode = packet.GetOpcode();
-    uint32 packetSize = packet.size();
+    uint32 packetSize = uint32(packet.size());
 
     // Reserve space for buffer
     uint8* headerPos = buffer.GetWritePointer();
     buffer.WriteCompleted(SizeOfServerHeader);
 
     buffer.Write(packet.contents(), packet.size());
-
-    packetSize += 1 /*opcode*/;
 
     PacketHeader header;
     header.Size = packetSize;
@@ -63,7 +61,7 @@ void Session::WritePacketToBuffer(WorldPacket const& packet, MessageBuffer & buf
 
 void Session::HandleVerifyProtocol(WorldPackets::Login::LoginVerifyProtocol& loginQuery)
 {
-    std::cout << "Client connected" << '\n';
+    std::cout << "Received: CMSG_VERIFY_PROTOCOL" << '\n';
 
     WorldPackets::Login::LoginVerifyProtocolReply packet;
     char result[] = { 38, 2, 8, 0, 18, 16, 1, 83, 33, 77, 74, 4, 39, 183, 180, 89, 15, 62, 167, 157, 41, 233, 26, 16, 73, 24, 161, 42, 100, 225, 218, 189, 132, 217, 244, 138, 139, 60, 39, 32 };
@@ -73,10 +71,64 @@ void Session::HandleVerifyProtocol(WorldPackets::Login::LoginVerifyProtocol& log
 
 void Session::HandleAuthSessionToken(WorldPackets::Login::AuthSessionToken& token)
 {
-    std::cout << "Client request auth session token" << '\n';
+    std::cout << "Received: CMSG_AUTH_SESSION_TOKEN" << '\n';
 
-    WorldPackets::Login::LoginVerifyProtocolReply packet;
+    WorldPackets::Login::AuthSessionTokenReply packet;
     char result[] = { 2, 6, 8, 0 };
+
+    boost::asio::write(_socket, boost::asio::buffer(result));
+}
+
+void Session::HandleCharSummaryList(WorldPackets::Login::CharSummaryList& token)
+{
+    std::cout << "Received: CMSG_CHAR_SUMMARY_LIST" << '\n';
+
+    WorldPackets::Login::CharSummaryListReply packet;
+    char result[] = { 2, 8, 8, 0 };
+
+    boost::asio::write(_socket, boost::asio::buffer(result));
+}
+
+enum class Language : uint8
+{
+    Unknown             = 0,
+    English             = 1,
+    French              = 2,
+    German              = 3,
+    Italian             = 4,
+    Spanish             = 5,
+    Korean              = 6,
+    Chinese             = 7,
+    ChineseTraditional  = 8,
+    Japanese            = 9,
+    Russian             = 10
+};
+
+void Session::HandleClusterList(WorldPackets::Login::ClusterList& list)
+{
+    std::cout << "Received: CMSG_CLUSTER_LIST" << '\n';
+
+    WorldPackets::Login::ClusterListReply packet;
+    packet.Id = 1;
+    packet.Name = "Ascension";
+    packet.Host = "127.0.0.1";
+    packet.Port = 18047;
+    packet.Language = uint8(Language::English);
+    packet.MaxPopulation = 500;
+    packet.Population = 0;
+    packet.Status = 1;
+    packet.ServerId = 1;
+    packet.ServerName = "Ascension";
+
+    SendPacket(packet.Write());
+}
+
+void Session::HandleAccPropList(WorldPackets::Login::AccPropList& list)
+{
+    std::cout << "Client request account property list" << '\n';
+
+    WorldPackets::Login::AccPropListReply packet;
+    char result[] = { 2, 12, 8, 0 };
 
     boost::asio::write(_socket, boost::asio::buffer(result));
 }

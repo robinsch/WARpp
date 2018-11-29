@@ -242,7 +242,8 @@ public:
 
     ByteBuffer &operator<<(uint32 value)
     {
-        append<uint32>(value);
+        append<uint8>(value % 128 + 128);
+        append<uint8>(value / 128);
         return *this;
     }
 
@@ -292,17 +293,22 @@ public:
 
     ByteBuffer &operator<<(const std::string &value)
     {
+        
         if (size_t len = value.length())
+        {
+            append<uint8>(uint8(len));
             append((uint8 const*)value.c_str(), len);
-        append<uint8>(0);
+        }
         return *this;
     }
 
     ByteBuffer &operator<<(const char *str)
     {
         if (size_t len = (str ? strlen(str) : 0))
+        {
+            append<uint8>(uint8(len));
             append((uint8 const*)str, len);
-        append<uint8>(0);
+        }
         return *this;
     }
 
