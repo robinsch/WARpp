@@ -1,4 +1,5 @@
 #include "Session.h"
+#include "RealmMgr.h"
 
 uint32 const SizeOfClientHeader = sizeof(uint8) + sizeof(uint8);
 uint32 const SizeOfServerHeader = sizeof(uint8) + sizeof(uint8);
@@ -89,20 +90,7 @@ void Session::HandleCharSummaryList(WorldPackets::Login::CharSummaryList& token)
     boost::asio::write(_socket, boost::asio::buffer(result));
 }
 
-enum class Language : uint8
-{
-    Unknown             = 0,
-    English             = 1,
-    French              = 2,
-    German              = 3,
-    Italian             = 4,
-    Spanish             = 5,
-    Korean              = 6,
-    Chinese             = 7,
-    ChineseTraditional  = 8,
-    Japanese            = 9,
-    Russian             = 10
-};
+
 
 void Session::HandleClusterList(WorldPackets::Login::ClusterList& list)
 {
@@ -111,14 +99,19 @@ void Session::HandleClusterList(WorldPackets::Login::ClusterList& list)
     WorldPackets::Login::ClusterListReply packet;
     packet.Id = 1;
     packet.Name = "Ascension";
-    packet.Host = "127.0.0.1";
-    packet.Port = 18047;
-    packet.Language = uint8(Language::English);
-    packet.MaxPopulation = 500;
-    packet.Population = 0;
-    packet.Status = 1;
-    packet.ServerId = 1;
-    packet.ServerName = "Ascension";
+
+    for (Realm const& realm : sRealmMgr->GetRealms())
+    {
+        packet.Id = 1;
+        packet.Host = realm.Host;
+        packet.Port = realm.Port;
+        packet.Language = uint8(realm.Language);
+        packet.MaxPopulation = realm.MaxPopulation;
+        packet.Population = realm.Population;
+        packet.Status = uint8(realm.Status);
+        packet.ServerId = realm.Id;
+        packet.ServerName = realm.Name;
+    }
 
     SendPacket(packet.Write());
 }

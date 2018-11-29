@@ -242,8 +242,11 @@ public:
 
     ByteBuffer &operator<<(uint32 value)
     {
-        append<uint8>(value % 128 + 128);
-        append<uint8>(value / 128);
+        while (value > 127) {
+            append<uint8>(value | 0x80);
+            value >>= 7;
+        }
+        append<uint8>(value);
         return *this;
     }
 
