@@ -18,6 +18,7 @@
 
 #include "Opcodes.h"
 #include "Session.h"
+#include "Log.h"
 
 #include <iomanip>
 #include <sstream>
@@ -83,19 +84,19 @@ void OpcodeTable::ValidateAndSetClientOpcode(OpcodeClient opcode, char const* na
 {
     if (uint32(opcode) == NULL_OPCODE)
     {
-        //TC_LOG_ERROR("network", "Opcode %s does not have a value", name);
+        WAR_LOG_ERROR("network", "Opcode %s does not have a value", name);
         return;
     }
 
     if (uint32(opcode) >= NUM_OPCODE_HANDLERS)
     {
-        //TC_LOG_ERROR("network", "Tried to set handler for an invalid opcode %d", opcode);
+        WAR_LOG_ERROR("network", "Tried to set handler for an invalid opcode %d", opcode);
         return;
     }
 
     if (_internalTableClient[opcode] != NULL)
     {
-        //TC_LOG_ERROR("network", "Tried to override client handler of %s with %s (opcode %u)", opcodeTable[opcode]->Name, name, opcode);
+        WAR_LOG_ERROR("network", "Tried to override client handler of %s with %s (opcode %u)", opcodeTable[opcode]->Name, name, opcode);
         return;
     }
 
@@ -106,25 +107,25 @@ void OpcodeTable::ValidateAndSetServerOpcode(OpcodeServer opcode, char const* na
 {
     if (uint32(opcode) == NULL_OPCODE)
     {
-        //TC_LOG_ERROR("network", "Opcode %s does not have a value", name);
+        WAR_LOG_ERROR("network", "Opcode %s does not have a value", name);
         return;
     }
 
     if (uint32(opcode) >= NUM_OPCODE_HANDLERS)
     {
-        //TC_LOG_ERROR("network", "Tried to set handler for an invalid opcode %d", opcode);
+        WAR_LOG_ERROR("network", "Tried to set handler for an invalid opcode %d", opcode);
         return;
     }
 
     if (conIdx >= MAX_CONNECTION_TYPES)
     {
-        //TC_LOG_ERROR("network", "Tried to set invalid connection type %u for opcode %s", conIdx, name);
+        WAR_LOG_ERROR("network", "Tried to set invalid connection type %u for opcode %s", conIdx, name);
         return;
     }
 
     if (_internalTableServer[opcode] != NULL)
     {
-        //TC_LOG_ERROR("network", "Tried to override server handler of %s with %s (opcode %u)", opcodeTable[opcode]->Name, name, opcode);
+        WAR_LOG_ERROR("network", "Tried to override server handler of %s with %s (opcode %u)", opcodeTable[opcode]->Name, name, opcode);
         return;
     }
 

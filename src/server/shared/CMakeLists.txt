@@ -31,7 +31,8 @@ target_include_directories(shared
 
 target_link_libraries(shared
   PUBLIC
-  common)
+  common
+  database)
 
 set_target_properties(shared
     PROPERTIES

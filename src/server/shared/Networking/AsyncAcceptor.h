@@ -57,7 +57,7 @@ public:
                 }
                 catch (boost::system::system_error const& err)
                 {
-                    TC_LOG_INFO("network", "Failed to initialize client's socket %s", err.what());
+                    WAR_LOG_INFO("network", "Failed to initialize client's socket %s", err.what());
                 }
             }
 

@@ -10,7 +10,7 @@ endif (USE_COREPCH)
 
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR})
 
-add_definitions(-DWARPP_API_EXPORT_COMMON)
+add_definitions(-DWAR_API_EXPORT_COMMON)
 
 add_library(common
   ${PRIVATE_SOURCES}
@@ -41,7 +41,11 @@ target_include_directories(common
 
 target_link_libraries(common
   PUBLIC
-    boost)
+    boost
+	utf8cpp
+    fmt)
+
+add_dependencies(common revision_data.h)
 
 set_target_properties(common
     PROPERTIES
