@@ -13,7 +13,11 @@ namespace WorldPackets
         public:
             LoginVerifyProtocol(WorldPacket&& packet) : ClientPacket(CMSG_VERIFY_PROTOCOL, std::move(packet)) { }
 
-            void Read() override {};
+            void Read() override;
+
+            uint32 ProtocolVersion;
+            uint32 ProductId;
+            uint8 PublicKey;
         };
 
         class LoginVerifyProtocolReply final : public ServerPacket
@@ -109,6 +113,14 @@ namespace WorldPackets
 
             uint8 Unk1 = 8;
             uint8 Unk2 = 0;
+        };
+
+        class AccProperties final : public ClientPacket
+        {
+        public:
+            AccProperties(WorldPacket&& packet) : ClientPacket(CMSG_ACC_PROPERTIES, std::move(packet)) { }
+
+            void Read() override {};
         };
     }
 }

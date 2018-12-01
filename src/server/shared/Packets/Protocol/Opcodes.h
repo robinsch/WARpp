@@ -32,6 +32,7 @@ enum OpcodeClient : uint16
     CMSG_CHAR_SUMMARY_LIST      = 0x07,
     CMSG_CLUSTER_LIST           = 0x09,
     CMSG_ACC_PROP_LIST          = 0x0B,
+    CMSG_ACC_PROPERTIES         = 0x0D,
 };
 
 enum OpcodeServer : uint16

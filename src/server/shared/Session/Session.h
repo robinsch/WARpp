@@ -129,11 +129,12 @@ public:
     void SendPacket(WorldPacket const* packet);
     void WritePacketToBuffer(WorldPacket const& packet, MessageBuffer& buffer);
 
-    void HandleVerifyProtocol(WorldPackets::Login::LoginVerifyProtocol& loginQuery);
-    void HandleAuthSessionToken(WorldPackets::Login::AuthSessionToken& token);
-    void HandleCharSummaryList(WorldPackets::Login::CharSummaryList& list);
-    void HandleClusterList(WorldPackets::Login::ClusterList& list);
-    void HandleAccPropList(WorldPackets::Login::AccPropList& list);
+    void HandleVerifyProtocol(WorldPackets::Login::LoginVerifyProtocol& data);
+    void HandleAuthSessionToken(WorldPackets::Login::AuthSessionToken& data);
+    void HandleCharSummaryList(WorldPackets::Login::CharSummaryList& data);
+    void HandleClusterList(WorldPackets::Login::ClusterList& data);
+    void HandleAccPropList(WorldPackets::Login::AccPropList& data);
+    void HandleAccProperties(WorldPackets::Login::AccProperties& data);
 
     ConnectionType GetConnectionType() const { return _type; }
 

@@ -142,7 +142,8 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_AUTH_SESSION_TOKEN,                             STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &Session::HandleAuthSessionToken);
     DEFINE_HANDLER(CMSG_CHAR_SUMMARY_LIST,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &Session::HandleCharSummaryList);
     DEFINE_HANDLER(CMSG_CLUSTER_LIST,                                   STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &Session::HandleClusterList);  
-    DEFINE_HANDLER(CMSG_ACC_PROP_LIST,                                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &Session::HandleAccPropList);    
+    DEFINE_HANDLER(CMSG_ACC_PROP_LIST,                                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &Session::HandleAccPropList);
+    DEFINE_HANDLER(CMSG_ACC_PROPERTIES,                                 STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &Session::HandleAccProperties);
 
 #undef DEFINE_HANDLER
 
