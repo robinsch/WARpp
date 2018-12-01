@@ -7,6 +7,9 @@ WorldPacket const* WorldPackets::Login::LoginVerifyProtocolReply::Write()
 
 WorldPacket const* WorldPackets::Login::AuthSessionTokenReply::Write()
 {
+    _worldPacket << Result;
+    _worldPacket << Unk2;
+
     return &_worldPacket;
 }
 

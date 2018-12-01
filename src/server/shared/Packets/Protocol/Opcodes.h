@@ -41,6 +41,7 @@ enum OpcodeServer : uint16
     SMSG_CHAR_SUMMARY_LIST      = 0x08,
     SMSG_CLUSTER_LIST           = 0x0A,
     SMSG_ACC_PROP_LIST          = 0x0C,
+    SMSG_ACC_PROP               = 0x0D,
 };
 
 /// Player state

@@ -35,11 +35,12 @@ namespace WorldPackets
         class AuthSessionTokenReply final : public ServerPacket
         {
         public:
-            AuthSessionTokenReply() : ServerPacket(SMSG_VERIFY_PROTOCOL) { }
+            AuthSessionTokenReply() : ServerPacket(SMSG_AUTH_SESSION_TOKEN, 2) { }
 
             WorldPacket const* Write() override;
 
-            uint32 Result;
+            uint32 Result = 8;
+            uint32 Unk2 = 0;
         };
 
         class CharSummaryList final : public ClientPacket
@@ -53,12 +54,12 @@ namespace WorldPackets
         class CharSummaryListReply final : public ServerPacket
         {
         public:
-            CharSummaryListReply() : ServerPacket(SMSG_CHAR_SUMMARY_LIST) { }
+            CharSummaryListReply() : ServerPacket(SMSG_CHAR_SUMMARY_LIST, 2) { }
 
             WorldPacket const* Write() override;
 
-            uint8 Unk1;
-            uint8 Unk2;
+            uint8 Unk1 = 8;
+            uint8 Unk2 = 0;
         };
 
         class ClusterList final : public ClientPacket
@@ -76,19 +77,19 @@ namespace WorldPackets
 
             WorldPacket const* Write() override;
 
-            uint8 Id;
-            std::string Name;
-            std::string Host;
-            uint32 Port;
-            uint8 Population;
-            uint32 MaxPopulation;
-            uint8 PopulationStatus;
-            uint8 Language;
-            int8 Status;
+            uint8 Id = 0;
+            std::string Name = "";
+            std::string Host = "127.0.0.1";
+            uint32 Port = 18047;
+            uint8 Population = 0;
+            uint32 MaxPopulation = 0;
+            uint8 PopulationStatus = 1;
+            uint8 Language = 1;
+            int8 Status = 1;
 
             // Reapeat
-            uint8 ServerId;
-            std::string ServerName;
+            uint8 ServerId = 1;
+            std::string ServerName = "";
         };
 
         class AccPropList final : public ClientPacket
@@ -106,8 +107,8 @@ namespace WorldPackets
 
             WorldPacket const* Write() override;
 
-            uint8 Unk1;
-            uint8 Unk2;
+            uint8 Unk1 = 8;
+            uint8 Unk2 = 0;
         };
     }
 }
