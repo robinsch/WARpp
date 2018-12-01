@@ -15,7 +15,6 @@ RealmMgr* RealmMgr::instance()
 {
     static RealmMgr instance;
     return &instance;
-    return nullptr;
 }
 
 bool RealmMgr::AddRealm(Realm realm)

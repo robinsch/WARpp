@@ -1,12 +1,12 @@
-#include "Server.h"
+#include "AuthServer.h"
 
-void Server::Run()
+void AuthServer::Run()
 {
     _accept();
     service.run();
 }
 
-void Server::_accept()
+void AuthServer::_accept()
 {
     acceptor.async_accept(socket, [this](boost::system::error_code ec)
     {

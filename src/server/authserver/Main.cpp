@@ -1,12 +1,16 @@
-#include "Server.h"
+#include "AuthServer.h"
 #include "RealmMgr.h"
+
+#include <iostream>
 
 int main()
 {
-    Server server{ "127.0.0.1", 18046 };
+    std::cout << "Starting WARpp Authentication Server...\n";
+    AuthServer auth(("127.0.0.1", 18046));
 
     std::cout << "Initializing Opcodes...\n";
     opcodeTable.Initialize();
+    std::cout << "Initialized Opcodes.\n";
 
     Realm realm;
     realm.Id = 1;
@@ -18,9 +22,8 @@ int main()
     realm.Status = RealmStatus::Offline;
     realm.Language = RealmLanguage::English;
 
-    std::cout << "Register realm " << realm.Name << "\n";
     sRealmMgr->AddRealm(realm);
 
-    std::cout << "Server started on Port: " << 18046 << "\n";
-    server.Run();
+    std::cout << "Server started!\n";
+    auth.Run();
 }
