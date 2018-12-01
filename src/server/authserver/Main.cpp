@@ -16,10 +16,10 @@ int main()
     realm.Id = 1;
     realm.Name = "Ascension";
     realm.Host = "127.0.0.1";
-    realm.Port = 18046;
-    realm.MaxPopulation = 55;
+    realm.Port = 18047;
+    realm.MaxPopulation = 500;
     realm.Population = 0;
-    realm.Status = RealmStatus::Offline;
+    realm.Status = RealmStatus::Online;
     realm.Language = RealmLanguage::English;
 
     sRealmMgr->AddRealm(realm);

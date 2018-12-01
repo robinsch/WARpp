@@ -47,6 +47,7 @@ void Session::HandleClusterList(WorldPackets::Login::ClusterList& list)
         packet.Language = uint8(realm.Language);
         packet.MaxPopulation = realm.MaxPopulation;
         packet.Population = realm.Population;
+        packet.PopulationStatus = 0;
         packet.Status = uint8(realm.Status);
         packet.ServerId = realm.Id;
         packet.ServerName = realm.Name;
