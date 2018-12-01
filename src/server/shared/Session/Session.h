@@ -7,7 +7,6 @@
 #include "Opcodes.h"
 #include "WorldPacket.h"
 #include "LoginPackets.h"
-#include "Server.h"
 
 #include <memory>
 #include <boost\asio.hpp>

@@ -1,5 +1,4 @@
 #include "Session.h"
-#include "RealmMgr.h"
 
 uint32 const SizeOfClientHeader = sizeof(uint8) + sizeof(uint8);
 uint32 const SizeOfServerHeader = sizeof(uint8) + sizeof(uint8);
@@ -100,18 +99,18 @@ void Session::HandleClusterList(WorldPackets::Login::ClusterList& list)
     packet.Id = 1;
     packet.Name = "Ascension";
 
-    for (Realm const& realm : sRealmMgr->GetRealms())
-    {
-        packet.Id = 1;
-        packet.Host = realm.Host;
-        packet.Port = realm.Port;
-        packet.Language = uint8(realm.Language);
-        packet.MaxPopulation = realm.MaxPopulation;
-        packet.Population = realm.Population;
-        packet.Status = uint8(realm.Status);
-        packet.ServerId = realm.Id;
-        packet.ServerName = realm.Name;
-    }
+    //for (Realm const& realm : sRealmMgr->GetRealms())
+    //{
+    //    packet.Id = 1;
+    //    packet.Host = realm.Host;
+    //    packet.Port = realm.Port;
+    //    packet.Language = uint8(realm.Language);
+    //    packet.MaxPopulation = realm.MaxPopulation;
+    //    packet.Population = realm.Population;
+    //    packet.Status = uint8(realm.Status);
+    //    packet.ServerId = realm.Id;
+    //    packet.ServerName = realm.Name;
+    //}
 
     SendPacket(packet.Write());
 }
